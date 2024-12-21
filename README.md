@@ -1,7 +1,5 @@
 # Flappy-Bird
 Project OOP
-# Flappy Bird Game
-
 Welcome to the Flappy Bird game project. This project is a simple implementation of the Flappy Bird game using Java and Swing.
 
 ## Folder Structure
