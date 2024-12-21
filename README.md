@@ -16,7 +16,7 @@ This project is a simple implementation of the Flappy Bird game using Java and S
 5. [PowerPoint and Report](#report)
 6. [References](#references)
 
-## Introductio <a name="introduction"></a> :
+## Introduction <a name="introduction"></a> :
 ### Members:
 | Index | Name                   |     ID      |              Email               | Github account             |
 |:------|:-----------------------|:-----------:|:--------------------------------:|:---------------------------|
