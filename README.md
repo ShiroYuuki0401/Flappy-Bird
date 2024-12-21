@@ -72,8 +72,8 @@ Language:
 
 ### How to play :
 * Use the SPACE key to make the bird jump and avoid obstacles.
-
-
+* Use P to pause game
+* Use the mouse to interact with the interface.
 ## PowerPoint and Report <a name="report"></a>
 ### PowerPoint
 Support: Canva.
