@@ -71,7 +71,7 @@ Language:
 
 
 ### How to play :
-
+* Use the SPACE key to make the bird jump and avoid obstacles.
 
 
 ## PowerPoint and Report <a name="report"></a>
