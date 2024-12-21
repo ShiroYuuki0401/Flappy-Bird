@@ -1,74 +1,82 @@
-# Flappy-Bird
-Project OOP
-Welcome to the Flappy Bird game project. This project is a simple implementation of the Flappy Bird game using Java and Swing.
+# Flappy Bird Game
 
-## Folder Structure
+The Flappy Bird Game is a modern version of the classic mobile game, recreating the simple yet addictive experience with enhanced graphics and additional features. In Flappy Bird, the goal is to navigate a bird through a series of pipes without hitting them, earning points for each set of pipes successfully passed.
 
-The workspace contains the following folders:
+## Key Components
 
-- `.vscode`: contains Visual Studio Code settings
-  - `settings.json`: configuration for the Java project
-- `bin`: the folder where compiled output files are generated
-  - `App.class`: The main entry point of the application.
-  - `objects/`: Contains compiled class files for game objects and utilities.
-  - `resources/`: Contains game resources like images and sounds.
-- `lib`: the folder to maintain dependencies
-- `src`: the folder to maintain source files
-  - `App.java`: The main entry point of the application.
-  - `objects/`: Contains source files for game objects and utilities.
-  - `resources/`: Contains game resources like images and sounds.
-- `README.md`: This file.
+1. **Main Application ([`App.java`](src/App.java))**:
+   - The entry point of the application.
+   - Initializes the main game window and displays the start screen.
 
-## Getting Started
+2. **Start Screen ([`StartScreen.java`](src/objects/StartScreen.java))**:
+   - Displays the initial screen with options to start the game or view the history of scores.
+   - Contains buttons to navigate to the game or history screen.
 
-To get started with the project, follow these steps:
+3. **Game Logic ([`FlappyBird.java`](src/objects/FlappyBird.java))**:
+   - Implements the main game logic and rendering.
+   - Handles user input, game physics, collision detection, and scoring.
+   - Manages the game loop and timers for game updates and pipe placement.
 
-1. **Clone the repository**:
-    ```sh
-    git clone <repository-url>
-    cd <repository-directory>
-    ```
+4. **Game Configuration ([`GameConfig.java`](src/objects/GameConfig.java))**:
+   - Contains constants for game settings such as board dimensions, pipe dimensions, bird dimensions, gravity, and velocity.
 
-2. **Open the project in Visual Studio Code**:
-    ```sh
-    code .
-    ```
+5. **Game Over Screen ([`GameOverScreen.java`](src/objects/GameOverScreen.java))**:
+   - Displays the game over screen with the final score.
+   - Provides options to restart the game or return to the start screen.
 
-3. **Build the project**:
-    - Open the terminal in Visual Studio Code.
-    - Run the following command to compile the project:
-      ```sh
-      javac -d bin src/**/*.java
-      ```
+6. **History Screen ([`HistoryScreen.java`](src/objects/HistoryScreen.java))**:
+   - Displays the history of scores and the best score.
+   - Reads scores from a text file and displays them in a sorted order.
 
-4. **Run the project**:
-    - In the terminal, run the following command to start the application:
-      ```sh
-      java -cp bin App
-      ```
+7. **Bird ([`Bird.java`](src/objects/Bird.java))**:
+   - Represents the bird character in the game.
+   - Contains properties for position and dimensions.
 
-## How to Play
+8. **Pipe ([`Pipe.java`](src/objects/Pipe.java))**:
+   - Represents the pipes that the bird must avoid.
+   - Contains properties for position, dimensions, and image.
 
-1. When you start the application, you will see the start screen with a "Start Game" button.
-2. Click the "Start Game" button to begin playing.
-3. Use the `SPACE` key to make the bird jump.
-4. Avoid the pipes and try to get the highest score possible.
-5. If the bird collides with a pipe or the ground, the game will be over, and you can restart by pressing the `SPACE` key again.
+9. **Image Loader ([`GameImageLoader.java`](src/objects/GameImageLoader.java))**:
+   - Loads images from resources for use in the game.
+
+10. **Sound Player ([`SoundPlayer.java`](src/objects/SoundPlayer.java))**:
+    - Plays background music and sound effects during the game.
 
 ## Features
 
-- **Jump Sound**: Plays a sound when the bird jumps.
-- **Game Over Sound**: Plays a sound when the game is over.
-- **Settings**: Adjust the volume of the game music.
+- **Start Screen**: Displays a start button to begin the game and a history button to view past scores.
+- **Game Play**: 
+  - The bird moves upward when the space key is pressed and falls due to gravity.
+  - Pipes appear from the right side of the screen and move left.
+  - The player must navigate the bird through the gaps between the pipes.
+  - The game ends if the bird collides with a pipe or the ground.
+- **Scoring**: 
+  - The score increases as the bird successfully passes through pipes.
+  - The score is saved to a history file upon game over.
+- **Game Over Screen**: Displays the final score and provides options to restart the game or return to the start screen.
+- **History Screen**: Displays a list of past scores and the best score.
 
-## Dependency Management
+## How to Play
 
-The `JAVA PROJECTS` view in Visual Studio Code allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+1. **Start the Game**: Click the "Start Game" button on the start screen.
+2. **Control the Bird**: Press the `SPACE` key to make the bird jump.
+3. **Avoid Obstacles**: Navigate the bird through the gaps between the pipes.
+4. **Pause/Resume**: Press the `P` key to pause or resume the game.
+5. **Game Over**: If the bird collides with a pipe or the ground, the game ends, and the game over screen is displayed.
+6. **View History**: Click the "History" button on the start screen to view past scores.
 
-## Customizing the Project
+## Folder Structure
 
-If you want to customize the folder structure or other settings, open [settings.json](http://_vscodecontentref_/0) and update the related settings there.
+- **src**: Contains the source code files.
+- **bin**: Contains the compiled class files.
+- **lib**: Contains dependencies.
+- **resources**: Contains game assets such as images and sound files.
+- **.vscode**: Contains Visual Studio Code settings.
 
-## License
+## Build and Run
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+To build and run the project, follow these steps:
+
+1. **Build the Project**:
+   ```sh
+   javac -d bin src/**/*.java
