@@ -1,82 +1,83 @@
-# Flappy Bird Game
+# Flappy Bird OOP
 
-The Flappy Bird Game is a modern version of the classic mobile game, recreating the simple yet addictive experience with enhanced graphics and additional features. In Flappy Bird, the goal is to navigate a bird through a series of pipes without hitting them, earning points for each set of pipes successfully passed.
+## Describes
+This project is a simple implementation of the Flappy Bird game using Java and Swing. The game involves a bird that the player controls to navigate through a series of pipes without colliding with them. The player uses the SPACE key to make the bird jump and avoid obstacles.
 
-## Key Components
+### Video Gameplay :
 
-1. **Main Application ([`App.java`](src/App.java))**:
-   - The entry point of the application.
-   - Initializes the main game window and displays the start screen.
+## Object-Oriented Programming (Semester 1_2024-2025)
 
-2. **Start Screen ([`StartScreen.java`](src/objects/StartScreen.java))**:
-   - Displays the initial screen with options to start the game or view the history of scores.
-   - Contains buttons to navigate to the game or history screen.
 
-3. **Game Logic ([`FlappyBird.java`](src/objects/FlappyBird.java))**:
-   - Implements the main game logic and rendering.
-   - Handles user input, game physics, collision detection, and scoring.
-   - Manages the game loop and timers for game updates and pipe placement.
+# Contents :
+1. [Introduction](#introduction)
+2. [Feature](#features)
+3. [UML Class Diagram](#uml)
+4. [Demo](#demo)
+5. [PowerPoint and Report](#report)
+6. [References](#references)
 
-4. **Game Configuration ([`GameConfig.java`](src/objects/GameConfig.java))**:
-   - Contains constants for game settings such as board dimensions, pipe dimensions, bird dimensions, gravity, and velocity.
+## Introduction <a name="introduction"></a> :
+### Members:
+| Index | Name                   |     ID      |              Email               | Github account             |
+|:------|:-----------------------|:-----------:|:--------------------------------:|:---------------------------|
+| 1     | | |||
+| 2     | Nguyễn Thành Đạt | ITCSIU22243 | datthanhnguyen009@gmail.com | ShiroYuuki0401 |
+| 3     |   |  |  |  |
+| 4     | |  |  | |  
 
-5. **Game Over Screen ([`GameOverScreen.java`](src/objects/GameOverScreen.java))**:
-   - Displays the game over screen with the final score.
-   - Provides options to restart the game or return to the start screen.
+### Tasks and Contribution 
+| Index | Role                                                         | Person In Charge | Contribution |
+|:------|:-------------------------------------------------------------|:--------------:|:------------:|
+| 1     | Leader     |    |          25%      |
+| 2     | Member      |  Nguyễn Thành Đạt    |          25%      |
+| 3     | Member  |      |      25%          |
+| 4     | Member |       |          25%      |  
 
-6. **History Screen ([`HistoryScreen.java`](src/objects/HistoryScreen.java))**:
-   - Displays the history of scores and the best score.
-   - Reads scores from a text file and displays them in a sorted order.
+### Environment :
+Language:  
 
-7. **Bird ([`Bird.java`](src/objects/Bird.java))**:
-   - Represents the bird character in the game.
-   - Contains properties for position and dimensions.
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 
-8. **Pipe ([`Pipe.java`](src/objects/Pipe.java))**:
-   - Represents the pipes that the bird must avoid.
-   - Contains properties for position, dimensions, and image.
+## Features <a name="features"></a>
+**Main Feature:**
 
-9. **Image Loader ([`GameImageLoader.java`](src/objects/GameImageLoader.java))**:
-   - Loads images from resources for use in the game.
+  
+**Extra feature:**
 
-10. **Sound Player ([`SoundPlayer.java`](src/objects/SoundPlayer.java))**:
-    - Plays background music and sound effects during the game.
 
-## Features
+**Salient features**
 
-- **Start Screen**: Displays a start button to begin the game and a history button to view past scores.
-- **Game Play**: 
-  - The bird moves upward when the space key is pressed and falls due to gravity.
-  - Pipes appear from the right side of the screen and move left.
-  - The player must navigate the bird through the gaps between the pipes.
-  - The game ends if the bird collides with a pipe or the ground.
-- **Scoring**: 
-  - The score increases as the bird successfully passes through pipes.
-  - The score is saved to a history file upon game over.
-- **Game Over Screen**: Displays the final score and provides options to restart the game or return to the start screen.
-- **History Screen**: Displays a list of past scores and the best score.
 
-## How to Play
+## UML Class Diagram <a name="uml"></a>
 
-1. **Start the Game**: Click the "Start Game" button on the start screen.
-2. **Control the Bird**: Press the `SPACE` key to make the bird jump.
-3. **Avoid Obstacles**: Navigate the bird through the gaps between the pipes.
-4. **Pause/Resume**: Press the `P` key to pause or resume the game.
-5. **Game Over**: If the bird collides with a pipe or the ground, the game ends, and the game over screen is displayed.
-6. **View History**: Click the "History" button on the start screen to view past scores.
+## Demo <a name="demo"></a> :
 
-## Folder Structure
+#### Start Screen
 
-- **src**: Contains the source code files.
-- **bin**: Contains the compiled class files.
-- **lib**: Contains dependencies.
-- **resources**: Contains game assets such as images and sound files.
-- **.vscode**: Contains Visual Studio Code settings.
 
-## Build and Run
+#### Play Screen 
 
-To build and run the project, follow these steps:
 
-1. **Build the Project**:
-   ```sh
-   javac -d bin src/**/*.java
+#### Pause Screen 
+
+
+#### Game Over Screen 
+
+
+### How to play :
+
+
+
+## PowerPoint and Report <a name="report"></a>
+### PowerPoint
+
+### Report
+
+## References <a name="references"></a>
+1. Object-Oriented Programming (Dr. Le Duy Tan)
+2. Object-Oriented Programming (Dr. Nguyen Trung Nghia)
+3. Code Flappy Bird in Java - Kenny Yip Coding. Available at: https://www.youtube.com/watch?v=Xw2MEG-FBsE
+4. Chat GPT. Available at: https://chatgpt.com
+5. Copilot. Available at: https://copilot.microsoft.com
+6. UML Design. Available at: IntelliJ IDEA & Lucid
+
