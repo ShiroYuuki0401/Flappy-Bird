@@ -5,6 +5,11 @@ This project is a simple implementation of the Flappy Bird game using Java and S
 
 ### Video Gameplay :
 
+
+https://github.com/user-attachments/assets/ef0399ac-d1cb-4d77-a3d3-8453abbc6dde
+
+
+
 ## Object-Oriented Programming (Semester 1_2024-2025)
 
 
