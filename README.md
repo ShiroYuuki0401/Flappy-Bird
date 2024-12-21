@@ -70,11 +70,11 @@ Language:
 
 ## PowerPoint and Report <a name="report"></a>
 ### PowerPoint
-Support: Canva
+Support: Canva.
 Direct: [Link](https://www.canva.com/design/DAGZ458zwSw/tdYHChF1H9X_umqyXr6ZlA/edit)
 
 ### Report
-Support: Google docs
+Support: Google docs.
 Direct: [Link](https://docs.google.com/document/d/1CkPTlfXeYHefpUOfDrV7wZSW125xfiMFL8oGAOVwWsc/edit?tab=t.0#heading=h.gjdgxs)
 ## References <a name="references"></a>
 1. Object-Oriented Programming (Dr. Le Duy Tan)
