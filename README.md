@@ -11,8 +11,9 @@ https://github.com/user-attachments/assets/ef0399ac-d1cb-4d77-a3d3-8453abbc6dde
 
 
 ## Object-Oriented Programming (Semester 1_2024-2025)
-
-
+![GitHub last commit](https://img.shields.io/github/last-commit/ShiroYuuki0401/Flappy-Bird)
+![GitHub issues](https://img.shields.io/github/issues/ShiroYuuki0401/Flappy-Bird)
+[![GitHub license](https://img.shields.io/badge/license-MIT-green)](./LICENSE) 
 # Contents :
 1. [Introduction](#introduction)
 2. [Feature](#features)
