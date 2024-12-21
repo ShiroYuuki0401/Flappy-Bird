@@ -20,18 +20,18 @@ This project is a simple implementation of the Flappy Bird game using Java and S
 ### Members:
 | Index | Name                   |     ID      |              Email               | Github account             |
 |:------|:-----------------------|:-----------:|:--------------------------------:|:---------------------------|
-| 1     | | |||
+| 1     |Nguyễn Trí Dũng| ITCSIU22242|tridung1262004@gmail.com|dungghetcode|
 | 2     | Nguyễn Thành Đạt | ITCSIU22243 | datthanhnguyen009@gmail.com | ShiroYuuki0401 |
-| 3     |   |  |  |  |
-| 4     | |  |  | |  
+| 3     |  Nguyễn Chính Nghĩa | ITITIU22111 |  chinhghiaglai@gmail.com|  nghiadz2110|
+| 4     | Nguyễn Huỳnh Đăng Khoa| ITITWE22152 |  pin2k4@gmail.com| khoa0610|  
 
 ### Tasks and Contribution 
 | Index | Role                                                         | Person In Charge | Contribution |
 |:------|:-------------------------------------------------------------|:--------------:|:------------:|
-| 1     | Leader     |    |          25%      |
+| 1     | Leader     |   Nguyễn Trí Dũng |          25%      |
 | 2     | Member      |  Nguyễn Thành Đạt    |          25%      |
-| 3     | Member  |      |      25%          |
-| 4     | Member |       |          25%      |  
+| 3     | Member  |   Nguyễn Chính Nghĩa   |      25%          |
+| 4     | Member |   Nguyễn Huỳnh Đăng Khoa    |          25%      |  
 
 ### Environment :
 Language:  
