@@ -60,7 +60,8 @@ Language:
 * Click “Home” to comeback to the main display.
 
 ## UML Class Diagram <a name="uml"></a>
-![Picture5](https://github.com/user-attachments/assets/ff2dd059-c527-44fe-bdb2-0f39c8f9162f)Cần kiểm tra
+![UML Diagram](https://github.com/user-attachments/assets/f895b347-79bd-4dda-8a2f-1efd6e38002f)
+Cần kiểm tra
 
 ## Demo <a name="demo"></a> :
 
