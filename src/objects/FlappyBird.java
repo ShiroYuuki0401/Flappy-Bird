@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class FlappyBird extends JPanel implements ActionListener, KeyListener {
+public class FlappyBird extends JPanel implements KeyListener {
     private final Image backgroundImg;
     private final Image darkBackgroundImg;
     private final Image birdImg;
@@ -17,8 +17,6 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
 
     private Bird bird;
     private ArrayList<Pipe> pipes;
-    private Timer gameLoop;
-    private Timer placePipeTimer;
     private final SoundPlayer soundPlayer;
 
     private int velocityY = 0;
@@ -26,42 +24,83 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
     private boolean paused = false;
     private double score = 0;
 
+    private Thread gameThread;
+
     public FlappyBird() {
         setPreferredSize(new Dimension(GameConfig.BOARD_WIDTH, GameConfig.BOARD_HEIGHT));
         setFocusable(true);
-    
+
         backgroundImg = GameImageLoader.loadImage("/resources/flappybirdlightbg.png");
         darkBackgroundImg = GameImageLoader.loadImage("/resources/flappybirddarkbg_1.jpg");
         birdImg = GameImageLoader.loadImage("/resources/flappybird.png");
         topPipeImg = GameImageLoader.loadImage("/resources/toppipe.png");
         bottomPipeImg = GameImageLoader.loadImage("/resources/bottompipe.png");
-    
+
         soundPlayer = new SoundPlayer();
         soundPlayer.play("/resources/game_background.wav");
-    
+
         initializeGame();
     }
-    
+
     public void initializeListeners() {
         addKeyListener(this);
     }
-    
 
     private void initializeGame() {
         bird = new Bird(GameConfig.BOARD_WIDTH / 8, GameConfig.BOARD_WIDTH / 2, GameConfig.BIRD_WIDTH, GameConfig.BIRD_HEIGHT);
         pipes = new ArrayList<>();
+        score = 0;
+        velocityY = 0;
+        gameOver = false;
+        paused = false;
 
-        if (placePipeTimer != null) {
-            placePipeTimer.stop();
+        if (gameThread != null && gameThread.isAlive()) {
+            gameThread.interrupt();
         }
-        placePipeTimer = new Timer(1500, event -> placePipes());
-        placePipeTimer.start();
+        startGameLoop();
+    }
 
-        if (gameLoop != null) {
-            gameLoop.stop();
-        }
-        gameLoop = new Timer(1000 / 60, this);
-        gameLoop.start();
+    private void startGameLoop() {
+        gameThread = new Thread(() -> {
+            long lastTime = System.nanoTime();
+            long pipeTimer = System.nanoTime();
+            double nsPerTick = 1000000000.0 / 60; // Target: 60 FPS
+            double delta = 0;
+
+            while (!gameOver) {
+                long now = System.nanoTime();
+                delta += (now - lastTime) / nsPerTick;
+                lastTime = now;
+
+                if (!paused) {
+                    while (delta >= 1) {
+                        move();
+                        delta--;
+                    }
+
+                    // Thêm ống mỗi 1.5 giây
+                    if (System.nanoTime() - pipeTimer >= 1500000000) {
+                        placePipes();
+                        pipeTimer = System.nanoTime();
+                    }
+                }
+
+                repaint();
+                try {
+                    Thread.sleep(2); // Giảm tải CPU
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+
+            if (gameOver) {
+                soundPlayer.stop();
+                soundPlayer.playClickSound("/resources/game-over.wav");
+                saveScoreToHistory();
+                showGameOverScreen();
+            }
+        });
+        gameThread.start();
     }
 
     private void placePipes() {
@@ -70,6 +109,55 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
 
         pipes.add(new Pipe(GameConfig.BOARD_WIDTH, randomPipeY, GameConfig.PIPE_WIDTH, GameConfig.PIPE_HEIGHT, topPipeImg));
         pipes.add(new Pipe(GameConfig.BOARD_WIDTH, randomPipeY + GameConfig.PIPE_HEIGHT + openingSpace, GameConfig.PIPE_WIDTH, GameConfig.PIPE_HEIGHT, bottomPipeImg));
+    }
+
+    private void move() {
+        velocityY += GameConfig.GRAVITY;
+        bird.y += 0.5*velocityY;
+        bird.y = Math.max(bird.y, 0);
+
+        for (Pipe pipe : pipes) {
+            pipe.x += GameConfig.VELOCITY_X;
+
+            if (!pipe.passed && bird.x > pipe.x + pipe.width) {
+                score += 0.5;
+                pipe.passed = true;
+            }
+
+            if (collision(bird, pipe)) {
+                gameOver = true;
+            }
+        }
+
+        if (bird.y > GameConfig.BOARD_HEIGHT) {
+            gameOver = true;
+        }
+    }
+
+    private boolean collision(Bird bird, Pipe pipe) {
+        return bird.x < pipe.x + pipe.width &&
+               bird.x + bird.width > pipe.x &&
+               bird.y < pipe.y + pipe.height &&
+               bird.y + bird.height > pipe.y;
+    }
+
+    private void saveScoreToHistory() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/objects/history.txt", true))) {
+            writer.write(String.valueOf(score));
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showGameOverScreen() {
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.getContentPane().removeAll();
+        GameOverScreen gameOverScreen = new GameOverScreen(frame, score);
+        frame.add(gameOverScreen);
+        frame.pack();
+        gameOverScreen.requestFocus();
+        frame.revalidate();
     }
 
     @Override
@@ -104,70 +192,6 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-    private void move() {
-        velocityY += GameConfig.GRAVITY;
-        bird.y += 0.75 * velocityY;
-        bird.y = Math.max(bird.y, 0);
-
-        for (Pipe pipe : pipes) {
-            pipe.x += GameConfig.VELOCITY_X;
-
-            if (!pipe.passed && bird.x > pipe.x + pipe.width) {
-                score += 0.5;
-                pipe.passed = true;
-            }
-
-            if (collision(bird, pipe)) {
-                gameOver = true;
-            }
-        }
-
-        if (bird.y > GameConfig.BOARD_HEIGHT) {
-            gameOver = true;
-        }
-    }
-
-    private boolean collision(Bird bird, Pipe pipe) {
-        return bird.x < pipe.x + pipe.width &&
-               bird.x + bird.width > pipe.x &&
-               bird.y < pipe.y + pipe.height &&
-               bird.y + bird.height > pipe.y;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (!gameOver && !paused) {
-            move();
-            repaint();
-        } else if (gameOver) {
-            placePipeTimer.stop();
-            gameLoop.stop();
-            soundPlayer.stop();
-            soundPlayer.playClickSound("/resources/game-over.wav"); // Play game over sound
-            saveScoreToHistory();
-            showGameOverScreen();
-        }
-    }
-
-    private void saveScoreToHistory() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/objects/history.txt", true))) {
-            writer.write(String.valueOf(score));
-            writer.newLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showGameOverScreen() {
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.getContentPane().removeAll();
-        GameOverScreen gameOverScreen = new GameOverScreen(frame, score);
-        frame.add(gameOverScreen);
-        frame.pack();
-        gameOverScreen.requestFocus();
-        frame.revalidate();
-    }
-
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -179,29 +203,17 @@ public class FlappyBird extends JPanel implements ActionListener, KeyListener {
             }
         } else if (e.getKeyCode() == KeyEvent.VK_P) {
             paused = !paused;
-            if (paused) {
-                placePipeTimer.stop();
-                gameLoop.stop();
-                soundPlayer.stop();
-            } else {
-                placePipeTimer.start();
-                gameLoop.start();
-                soundPlayer.play("/resources/game_background.wav");
-            }
             repaint();
         }
     }
 
     private void restartGame() {
         initializeGame();
-        gameOver = false;
-        score = 0;
-        velocityY = 0;
         soundPlayer.play("/resources/game_background.wav");
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {} 
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyReleased(KeyEvent e) {}

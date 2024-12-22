@@ -10,5 +10,5 @@ public class GameConfig {
     public static final int BIRD_HEIGHT = 24;
 
     public static final int GRAVITY = 2;
-    public static final int VELOCITY_X = -5;
+    public static final int VELOCITY_X = -3;
 }
