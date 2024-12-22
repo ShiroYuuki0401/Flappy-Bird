@@ -46,28 +46,38 @@ Language:
 
 ## Features <a name="features"></a>
 **Main Feature:**
-
-  
-**Extra feature:**
-
+* Play, Restart, Pause
+* Score tracking
+* History of user’s score
+* Sound
 
 **Salient features**
 
+* Main contribution: User Interface - Self - designed layout.
+* The game sound is fresh and catchy.
+* Click "Start Game" to start the new game
+* Click "Restart Game" to restart the new game after the bird dies.
+* Click “Home” to comeback to the main display.
 
 ## UML Class Diagram <a name="uml"></a>
+![Picture5](https://github.com/user-attachments/assets/ff2dd059-c527-44fe-bdb2-0f39c8f9162f)Cần kiểm tra
 
 ## Demo <a name="demo"></a> :
 
 #### Start Screen
+![Picture1](https://github.com/user-attachments/assets/81e19318-784a-4f42-b1c9-78c6bfd4bfc2)
 
 
 #### Play Screen 
 
+![Picture2](https://github.com/user-attachments/assets/53119824-8295-48f0-89ec-8cec9677bfc5)
 
 #### Pause Screen 
 
+![Picture3](https://github.com/user-attachments/assets/114fda3c-12fd-4301-a470-37474104d405)
 
 #### Game Over Screen 
+![Picture4](https://github.com/user-attachments/assets/7035c02c-92c8-4076-b6bc-5bd64b19aedc)
 
 
 ### How to play :
