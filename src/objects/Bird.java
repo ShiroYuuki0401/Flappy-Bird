@@ -1,6 +1,7 @@
 package objects;
 
 public class Bird {
+
     public int x;
     public int y;
     public final int width;

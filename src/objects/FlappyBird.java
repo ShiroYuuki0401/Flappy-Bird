@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 public class FlappyBird extends JPanel implements KeyListener {
+
+    // Declare variables for images, bird, pipes, sound player, velocity, game state, score, and game thread
     private final Image backgroundImg;
     private final Image darkBackgroundImg;
     private final Image birdImg;
@@ -21,38 +23,43 @@ public class FlappyBird extends JPanel implements KeyListener {
 
     private int velocityY = 0;
     private boolean gameOver = false;
-    private boolean paused = false;
     private double score = 0;
 
     private Thread gameThread;
+    private boolean paused = false;
+    private long pauseTime;
 
+    // Constructor to initialize the game
     public FlappyBird() {
         setPreferredSize(new Dimension(GameConfig.BOARD_WIDTH, GameConfig.BOARD_HEIGHT));
         setFocusable(true);
 
+        // Load images for the background, bird, and pipes
         backgroundImg = GameImageLoader.loadImage("/resources/flappybirdlightbg.png");
         darkBackgroundImg = GameImageLoader.loadImage("/resources/flappybirddarkbg_1.jpg");
         birdImg = GameImageLoader.loadImage("/resources/flappybird.png");
         topPipeImg = GameImageLoader.loadImage("/resources/toppipe.png");
         bottomPipeImg = GameImageLoader.loadImage("/resources/bottompipe.png");
 
+        // Initialize and play background sound
         soundPlayer = new SoundPlayer();
         soundPlayer.play("/resources/game_background.wav");
 
         initializeGame();
     }
 
+    // Initialize key listeners
     public void initializeListeners() {
         addKeyListener(this);
     }
 
+    // Initialize game variables and start the game loop
     private void initializeGame() {
         bird = new Bird(GameConfig.BOARD_WIDTH / 8, GameConfig.BOARD_WIDTH / 2, GameConfig.BIRD_WIDTH, GameConfig.BIRD_HEIGHT);
         pipes = new ArrayList<>();
         score = 0;
         velocityY = 0;
         gameOver = false;
-        paused = false;
 
         if (gameThread != null && gameThread.isAlive()) {
             gameThread.interrupt();
@@ -60,6 +67,7 @@ public class FlappyBird extends JPanel implements KeyListener {
         startGameLoop();
     }
 
+    // Start the game loop in a separate thread
     private void startGameLoop() {
         gameThread = new Thread(() -> {
             long lastTime = System.nanoTime();
@@ -68,26 +76,28 @@ public class FlappyBird extends JPanel implements KeyListener {
             double delta = 0;
 
             while (!gameOver) {
-                long now = System.nanoTime();
-                delta += (now - lastTime) / nsPerTick;
-                lastTime = now;
-
                 if (!paused) {
+                    long now = System.nanoTime();
+                    delta += (now - lastTime) / nsPerTick;
+                    lastTime = now;
+
                     while (delta >= 1) {
                         move();
                         delta--;
                     }
 
-                    // Thêm ống mỗi 1.5 giây
+                    // Add pipes every 1.5 seconds
                     if (System.nanoTime() - pipeTimer >= 1500000000) {
                         placePipes();
                         pipeTimer = System.nanoTime();
                     }
+                } else {
+                    pauseTime = System.nanoTime();
                 }
 
                 repaint();
                 try {
-                    Thread.sleep(2); // Giảm tải CPU
+                    Thread.sleep(2); // Reduce CPU load
                 } catch (InterruptedException e) {
                     break;
                 }
@@ -103,6 +113,7 @@ public class FlappyBird extends JPanel implements KeyListener {
         gameThread.start();
     }
 
+    // Place pipes at random positions
     private void placePipes() {
         int randomPipeY = (int) (-GameConfig.PIPE_HEIGHT / 4 - Math.random() * (GameConfig.PIPE_HEIGHT / 2));
         int openingSpace = GameConfig.BOARD_HEIGHT / 4;
@@ -111,9 +122,10 @@ public class FlappyBird extends JPanel implements KeyListener {
         pipes.add(new Pipe(GameConfig.BOARD_WIDTH, randomPipeY + GameConfig.PIPE_HEIGHT + openingSpace, GameConfig.PIPE_WIDTH, GameConfig.PIPE_HEIGHT, bottomPipeImg));
     }
 
+    // Move the bird and pipes, check for collisions, and update the score
     private void move() {
         velocityY += GameConfig.GRAVITY;
-        bird.y += 0.3*velocityY;
+        bird.y += 0.3 * velocityY;
         bird.y = Math.max(bird.y, 0);
 
         for (Pipe pipe : pipes) {
@@ -134,13 +146,15 @@ public class FlappyBird extends JPanel implements KeyListener {
         }
     }
 
+    // Check for collisions between the bird and pipes
     private boolean collision(Bird bird, Pipe pipe) {
-        return bird.x < pipe.x + pipe.width &&
-               bird.x + bird.width > pipe.x &&
-               bird.y < pipe.y + pipe.height &&
-               bird.y + bird.height > pipe.y;
+        return bird.x < pipe.x + pipe.width
+                && bird.x + bird.width > pipe.x
+                && bird.y < pipe.y + pipe.height
+                && bird.y + bird.height > pipe.y;
     }
 
+    // Save the score to a history file
     private void saveScoreToHistory() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/objects/history.txt", true))) {
             writer.write(String.valueOf(score));
@@ -150,6 +164,7 @@ public class FlappyBird extends JPanel implements KeyListener {
         }
     }
 
+    // Show the game over screen
     private void showGameOverScreen() {
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.getContentPane().removeAll();
@@ -166,6 +181,7 @@ public class FlappyBird extends JPanel implements KeyListener {
         draw(g);
     }
 
+    // Draw the background, bird, pipes, score, and game over message
     private void draw(Graphics g) {
         if ((int) score / 10 % 2 == 1) {
             g.drawImage(darkBackgroundImg, 0, 0, GameConfig.BOARD_WIDTH, GameConfig.BOARD_HEIGHT, null);
@@ -182,13 +198,10 @@ public class FlappyBird extends JPanel implements KeyListener {
         g.setFont(new Font("Arial", Font.PLAIN, 32));
         if (gameOver) {
             g.drawString("Game Over: " + (int) score, 10, 35);
+        } else if (paused) {
+            g.drawString("Paused", 10, 35);
         } else {
             g.drawString(String.valueOf((int) score), 10, 35);
-        }
-        if (paused) {
-            g.setColor(Color.red);
-            g.setFont(new Font("Arial", Font.BOLD, 48));
-            g.drawString("Paused", GameConfig.BOARD_WIDTH / 2 - 80, GameConfig.BOARD_HEIGHT / 2);
         }
     }
 
@@ -203,18 +216,26 @@ public class FlappyBird extends JPanel implements KeyListener {
             }
         } else if (e.getKeyCode() == KeyEvent.VK_P) {
             paused = !paused;
-            repaint();
+            if (!paused) {
+                long resumeTime = System.nanoTime();
+                pauseTime = resumeTime;
+                gameThread.interrupt();
+                startGameLoop();
+            }
         }
     }
 
+    // Restart the game
     private void restartGame() {
         initializeGame();
         soundPlayer.play("/resources/game_background.wav");
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+    }
 }
