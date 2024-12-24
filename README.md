@@ -61,7 +61,6 @@ Language:
 
 ## UML Class Diagram <a name="uml"></a>
 ![UML Diagram](https://github.com/user-attachments/assets/f895b347-79bd-4dda-8a2f-1efd6e38002f)
-Cần kiểm tra
 
 ## Demo <a name="demo"></a> :
 
