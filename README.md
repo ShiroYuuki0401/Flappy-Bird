@@ -4,12 +4,7 @@
 This project is a simple implementation of the Flappy Bird game using Java and Swing. The game involves a bird that the player controls to navigate through a series of pipes without colliding with them. The player uses the SPACE key to make the bird jump and avoid obstacles.
 
 ### Video Gameplay :
-
-
-https://github.com/user-attachments/assets/ef0399ac-d1cb-4d77-a3d3-8453abbc6dde
-
-
-
+https://github.com/user-attachments/assets/2cd66219-382a-4bca-a0dc-5ded23a216ab
 ## Object-Oriented Programming (Semester 1_2024-2025)
 ![GitHub last commit](https://img.shields.io/github/last-commit/ShiroYuuki0401/Flappy-Bird)
 ![GitHub issues](https://img.shields.io/github/issues/ShiroYuuki0401/Flappy-Bird)
@@ -73,8 +68,8 @@ Language:
 ![Picture2](https://github.com/user-attachments/assets/53119824-8295-48f0-89ec-8cec9677bfc5)
 
 #### Pause Screen 
+![image](https://github.com/user-attachments/assets/ece4b7da-1278-4328-8ed6-04348920c5cd)
 
-![Picture3](https://github.com/user-attachments/assets/114fda3c-12fd-4301-a470-37474104d405)
 
 #### Game Over Screen 
 ![Picture4](https://github.com/user-attachments/assets/7035c02c-92c8-4076-b6bc-5bd64b19aedc)
